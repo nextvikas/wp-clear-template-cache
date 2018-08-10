@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageplaza" translate="label" sortOrder="10">
+            <label>Mageplaza</label>
+        </tab>
+        <section id="questionsubmit" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Question Config</label>
+            <tab>mageplaza</tab>
+            <resource>Question_Submit::submit_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="question_page" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Question Per Page</label>
+                    <source_model>Question\Submit\Model\Grid</source_model>
+                    <comment>This number will display question per page.</comment>
+                </field>
+
+                <field id="question_smtphost" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SMTP Host</label>
+                    <comment>Gmail SMTP server address: smtp.gmail.com.</comment>
+                </field>
+                <field id="question_smtpusername" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SMTP Username</label>
+                    <comment>Gmail SMTP username: Your Gmail address (e.g. example@gmail.com).</comment>
+                </field>
+                <field id="question_smtppassword" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SMTP Password</label>
+                    <comment>Gmail SMTP password: Your Gmail password.</comment>
+                </field>
+
+
+            </group>
+        </section>
+    </system>
+</config>

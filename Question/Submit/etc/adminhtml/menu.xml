@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+   <menu>
+        <add id="Question_Submit::view" title="Question Submit" module="Question_Submit" sortOrder="11" resource="Question_Submit::view"/>
+
+        <add id="Question_Submit::grid" title="Manage Question" module="Question_Submit" sortOrder="10" parent="Question_Submit::view" action="question/grid/index" resource="Question_Submit::view"/>
+</menu>
+</config>

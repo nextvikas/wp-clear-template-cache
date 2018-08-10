@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * @var \Question\Submit\Block\Display $block
+ */
+
+
+$collection = $this->getQuestionHistory();
+//echo $collection->getLastPageNumber();
+//echo $collection->getSize();
+?>
+
+
+<legend class="legend"><span><?= $block->escapeHtml(__(ucfirst($this->getCustomerName()).' All Questions')) ?></span></legend>
+
+
+<table class="table">
+    <tbody>
+      <?php 
+      $i = 1;
+      if($collection->getSize() > 0) {
+          foreach ($collection as $item): ?>  
+          <tr>
+            <td>(<?php echo $i;?>). <?php echo $item->getQuestion();?> (<time class="timeago" datetime="<?php echo $item->getAddtime();?>"></time>)</td>
+          </tr>
+
+<?php
+if($item->getAnswer()!="") {
+?>
+          <tr>
+            <td><b>Reply:</b> <?php echo $item->getAnswer();?> (<time class="timeago" datetime="<?php echo $item->getAns_time();?>"></time>)</td>
+          </tr>
+<?php
+}
+?>
+
+
+
+
+        <?php 
+        $i++; 
+        endforeach; 
+    } else {
+         ?>  
+          <tr>
+            <td>No data found</td>
+          </tr>
+        <?php 
+    }
+    ?>  
+    </tbody>
+</table>
+<?php if ($this->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $this->getPagerHtml(); ?></div>
+<?php endif ?>
+
+
+
+
+<?php if(count($this->getCustomerCollection()) < 8) { ?>
+
+
+
+
+<form id="questions-form" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl("submit/account/question")?>">
+
+    <legend class="legend"><span><?= $block->escapeHtml(__('Submit a Question')) ?></span></legend>
+
+    <fieldset class="fieldset">
+        <div class="field questions">
+            <label class="label" for="question"><span><?= $block->escapeHtml(__('Enter Questions')) ?></span></label>
+            <div class="control">
+            	<textarea spellcheck="true" maxlength="200" name="question" id="question" class="input-textarea required-entry" cols="5" rows="8" data-validate="{required:true}" aria-required="true"></textarea>
+              <div class="limittext"><span class="charnum">200 Characters left</span></div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" id="add" title="" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+            </button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?php echo $this->getUrl("customer/account") ?>"><span>Go back</span></a>
+        </div>
+    </div>
+</form>
+<?php 
+} else {
+?>
+<div><p>Your one month limit exceeded </p></div>
+<?php 
+} 
+?>
+
+<!--script src="<?php //echo $block->getViewFileUrl('js/jquery.timeago.min.js')?>" type="text/javascript"></script-->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  // edit area start
+  var maxLength = 200;
+  var textarea_id = "question";
+  // edit area end
+
+  var html='<span style="color:red;">'+ maxLength + ' characters allowed, excess characters trimmed</span>';
+  jQuery("#"+textarea_id).on('input',function(){
+      var length = this.value.length;
+      if (length >= maxLength) {
+        this.value = this.value.substring(0, maxLength);
+        jQuery(this).next(".limittext").html(html);
+      } else {
+        var count=maxLength-length;
+        jQuery(this).next(".limittext").html('<span class="charnum">' +count+' Characters left</span>');
+      }
+  });
+  jQuery("time.timeago").timeago();
+});
+</script>
